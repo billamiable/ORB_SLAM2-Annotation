@@ -140,6 +140,8 @@ public:
   double fx, fy, cx, cy, bf;
 };
 
+// EdgeSE3ProjectXYZ is almost the same as EdgeSE3ProjectXYZOnlyPose
+// so we can actually just use only EdgeSE3ProjectXYZ, and fix landmark to mimic EdgeSE3ProjectXYZOnlyPose
 class  EdgeSE3ProjectXYZOnlyPose: public  BaseUnaryEdge<2, Vector2d, VertexSE3Expmap>{
 public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW

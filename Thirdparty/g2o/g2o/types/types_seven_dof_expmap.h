@@ -68,6 +68,7 @@ namespace g2o {
       setEstimate(s*estimate());
     }
 
+    // TODO seems to be the same for 1 and 2?
     Vector2d _principle_point1, _principle_point2;
     Vector2d _focal_length1, _focal_length2;
 
@@ -126,6 +127,7 @@ namespace g2o {
   };
 
 
+// it is also similar with EdgeStereoSE3ProjectXYZ in essence.
 /**/
 class EdgeSim3ProjectXYZ : public  BaseBinaryEdge<2, Vector2d,  VertexSBAPointXYZ, VertexSim3Expmap>
 {
