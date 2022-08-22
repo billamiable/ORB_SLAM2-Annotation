@@ -1056,6 +1056,7 @@ int Optimizer::OptimizeSim3(KeyFrame *pKF1, KeyFrame *pKF2, vector<MapPoint *> &
     optimizer.setAlgorithm(solver);
 
     // Calibration
+    // TODO why has K1 and K2? should be same, right?
     const cv::Mat &K1 = pKF1->mK;
     const cv::Mat &K2 = pKF2->mK;
 

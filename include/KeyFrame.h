@@ -57,6 +57,8 @@ public:
     // Bag of Words Representation
     void ComputeBoW();
 
+    // seems that graph node is only in openvslam, which is derived from keyframe
+    // but it does make it difficult to understand the whole logic
     // Covisibility graph functions
     void AddConnection(KeyFrame* pKF, const int &weight);
     void EraseConnection(KeyFrame* pKF);
