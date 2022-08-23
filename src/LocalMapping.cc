@@ -204,6 +204,8 @@ void LocalMapping::MapPointCulling()
     }
 }
 
+// yes, not only monocular needs to triangulate new mappoints, so for rgbd/stereo
+// the only difference is the threshold
 void LocalMapping::CreateNewMapPoints()
 {
     // Retrieve neighbor keyframes in covisibility graph
@@ -248,6 +250,7 @@ void LocalMapping::CreateNewMapPoints()
 
         if(!mbMonocular)
         {
+            // for stereo setups, it needs longer baseline than the stereo baseline
             if(baseline<pKF2->mb)
             continue;
         }
