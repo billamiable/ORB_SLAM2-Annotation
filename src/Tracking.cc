@@ -525,8 +525,11 @@ void Tracking::StereoInitialization()
             float z = mCurrentFrame.mvDepth[i];
             if(z>0)
             {
+                // transform depth to world coordinate
                 cv::Mat x3D = mCurrentFrame.UnprojectStereo(i);
+                // create new landmarks
                 MapPoint* pNewMP = new MapPoint(x3D,pKFini,mpMap);
+                // the below process should be the same as multi-camera slam
                 pNewMP->AddObservation(pKFini,i);
                 pKFini->AddMapPoint(pNewMP,i);
                 pNewMP->ComputeDistinctiveDescriptors();
