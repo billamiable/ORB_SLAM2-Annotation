@@ -239,6 +239,7 @@ float MapPoint::GetFoundRatio()
     return static_cast<float>(mnFound)/mnVisible;
 }
 
+// TODO already defined in original system, need to understand
 void MapPoint::ComputeDistinctiveDescriptors()
 {
     // Retrieve all observed descriptors

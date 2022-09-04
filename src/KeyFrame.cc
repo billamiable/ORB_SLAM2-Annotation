@@ -120,6 +120,8 @@ cv::Mat KeyFrame::GetTranslation()
     return Tcw.rowRange(0,3).col(3).clone();
 }
 
+// the covisibility is connected with current keyframe with its shared mappoints as weight
+// mConnectedKeyFrameWeights is essentially another form of covisibility (mvpOrderedConnectedKeyFrames)
 void KeyFrame::AddConnection(KeyFrame *pKF, const int &weight)
 {
     {
@@ -132,6 +134,7 @@ void KeyFrame::AddConnection(KeyFrame *pKF, const int &weight)
             return;
     }
 
+    // provide an ordered covisibility graph
     UpdateBestCovisibles();
 }
 
@@ -286,6 +289,7 @@ MapPoint* KeyFrame::GetMapPoint(const size_t &idx)
     return mvpMapPoints[idx];
 }
 
+// this part will AddConnection and create new element in mConnectedKeyFrameWeights
 void KeyFrame::UpdateConnections()
 {
     map<KeyFrame*,int> KFcounter;
@@ -311,6 +315,7 @@ void KeyFrame::UpdateConnections()
 
         map<KeyFrame*,size_t> observations = pMP->GetObservations();
 
+        // KFcounter stores the info of the covisibility's shared mappoint number of current keyframe
         for(map<KeyFrame*,size_t>::iterator mit=observations.begin(), mend=observations.end(); mit!=mend; mit++)
         {
             if(mit->first->mnId==mnId)
@@ -341,10 +346,12 @@ void KeyFrame::UpdateConnections()
         if(mit->second>=th)
         {
             vPairs.push_back(make_pair(mit->second,mit->first));
+            // add connection for covisibility
             (mit->first)->AddConnection(this,mit->second);
         }
     }
 
+    // always add the connection with most shared mappints
     if(vPairs.empty())
     {
         vPairs.push_back(make_pair(nmax,pKFmax));
